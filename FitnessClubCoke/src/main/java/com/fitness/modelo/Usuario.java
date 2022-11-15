@@ -42,7 +42,7 @@ public class Usuario implements Serializable{
     @JoinColumn(name = "IdLocalidad", nullable = false)
 	private Localidad Localidad;
 		
-	@Column(name = "Password",nullable = false, length = 45)
+	@Column(name = "Password",nullable = false, length = 60)
 	private String Password;
 	
 	@ManyToOne(optional=false,fetch = FetchType.EAGER)

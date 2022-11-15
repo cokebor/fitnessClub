@@ -19,6 +19,10 @@ public class Rol implements Serializable{
 	
 	@Column(name = "Nombre",nullable = false, length = 30,unique=true)
 	private String Nombre;
+	/*
+	@Column(name = "Descripcion",nullable = false, length = 30,unique=true)
+	private String Descripcion;
+	*/
 	
 	public Long getIdRol() {
 		return IdRol;
@@ -33,5 +37,14 @@ public class Rol implements Serializable{
 		Nombre = nombre;
 	}
 	
+	/*
+	public String getDescripcion() {
+		return Descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+*/
+
 	private static final long serialVersionUID = 1L;
 }

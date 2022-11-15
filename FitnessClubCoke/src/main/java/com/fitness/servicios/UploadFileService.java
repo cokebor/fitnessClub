@@ -23,13 +23,13 @@ public class UploadFileService implements IUploadFileService {
 	private final static String DIRECTORIO_UPLOAD = "uploads";
 
 	@Override
-	public Resource cargar(String nombreFoto) throws MalformedURLException {
+	public Resource cargar(String nombreFoto, String imagen) throws MalformedURLException {
 		Path rutaArchivo = getPath(nombreFoto);
 		log.info(rutaArchivo.toString());
 		Resource recurso = new UrlResource(rutaArchivo.toUri());
 
 		if (!recurso.exists() && !recurso.isReadable()) {
-			rutaArchivo = Paths.get("src/main/resources/static/images").resolve("no-usuario.png").toAbsolutePath();
+			rutaArchivo = Paths.get("src/main/resources/static/images").resolve(imagen).toAbsolutePath();
 
 			recurso = new UrlResource(rutaArchivo.toUri());
 

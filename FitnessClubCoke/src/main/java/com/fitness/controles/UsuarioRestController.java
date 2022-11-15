@@ -192,7 +192,7 @@ public class UsuarioRestController {
 		Resource recurso = null;
 
 		try {
-			recurso=uploadService.cargar(nombreFoto);
+			recurso=uploadService.cargar(nombreFoto,"no-usuario.png");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

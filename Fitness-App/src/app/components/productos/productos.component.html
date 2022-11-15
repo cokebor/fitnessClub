@@ -14,7 +14,7 @@
     <table class="table table-bordered table-striped" *ngIf="productos.length>0">
         <thead>
             <tr>
-                <th>#</th>
+                <th>#   </th>
                 <th>Marca</th>
                 <th>Descripcion</th>
                 <th>Rubro</th>
@@ -29,12 +29,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let producto of productos">
-                <td><img *ngIf="producto?.imagen" src="http://localhost:8080/api/productos/uploads/img/{{producto.imagen}}" alt="{{producto.imagen}}" class="img-thumbnail rounded" (click)="abrirModal(producto)" style="width:64px; cursor: pointer;"></td>
+                <td><img *ngIf="producto?.imagen" src="http://localhost:8080/api/productos/uploads/img/{{producto.imagen}}" alt="{{producto.imagen}}" class="img-thumbnail rounded" (click)="abrirModal(producto)" style="width:64px; cursor: pointer;">
+                    <img *ngIf="!producto?.imagen && producto?.servicio" src="http://localhost:8080/images/no-servicio.jpeg/" alt="Sin foto" class="img-thumbnail rounded" (click)="abrirModal(producto)" style="width:64px; cursor: pointer;">
+                    <img *ngIf="!producto?.imagen && !producto?.servicio" src="http://localhost:8080/images/no-producto.jpeg/" alt="Sin foto" class="img-thumbnail rounded" (click)="abrirModal(producto)" style="width:64px; cursor: pointer;"></td>
                 <td>{{producto.marca.nombre}}</td>
                 <td>{{producto.descripcion}}</td>
                 <td>{{producto.rubro.nombre}}</td>
                 <td>{{producto.disciplina.nombre}}</td>
-                <td>{{producto.precioUnitario}}</td>
+                <td>{{producto.precioUnitario  | currency: '$'}}</td>
                 <td>{{producto.stock}}</td>
                 <td>{{esServicio(producto.servicio)}}</td>
                 <td>{{estado(producto.estado)}}</td>

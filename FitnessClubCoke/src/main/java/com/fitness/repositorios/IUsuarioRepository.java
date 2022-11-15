@@ -10,5 +10,4 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query("select u from Usuario u where u.Email=?1")
 	public Usuario buscarPorEmail(String email);
-
 }

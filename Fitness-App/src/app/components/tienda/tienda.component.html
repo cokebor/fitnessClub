@@ -10,7 +10,7 @@
             <img class="card-img-top img-fluid" [src]="producto.imagen" [alt]="producto.descripcion">
             <div class="card-block">
                 <h4 class="card-title" id="titulo">{{producto.descripcion | uppercase}} <small>{{producto.marca.nombre}}</small></h4>
-                <p class="card-text">{{ producto.precioUnitario}}</p>
+                <p class="card-text">{{ producto.precioUnitario  | currency: '$'}}</p>
                 <!--<button type="button" class="btn btn-outline-primary btn block"> Ver mas...</button>-->
                 <a class="btn btn-outline-primary" id="boton-comprar"> Ver Info... </a>
             </div>
