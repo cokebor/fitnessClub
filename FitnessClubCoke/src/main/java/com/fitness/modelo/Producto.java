@@ -45,7 +45,7 @@ public class Producto implements Serializable{
 	@Column(name = "PrecioUnitario",nullable = false)
 	private float PrecioUnitario;
 	
-	@Column(name = "Imagen",nullable = false, length = 45)
+	@Column(name = "Imagen"/*,nullable = false*/)
 	private String Imagen;
 	
 	@Column(name = "Stock",nullable = false)

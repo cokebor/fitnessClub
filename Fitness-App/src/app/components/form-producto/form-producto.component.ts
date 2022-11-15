@@ -80,12 +80,19 @@ export class FormProductoComponent implements OnInit {
    
     this.productoService.guardar(this.producto).subscribe(
       producto=>{
+        console.log(producto)
         this.router.navigate(['/productos']);
-        Swal.fire('Nuevo Producto', `El producto ${producto.nombre} ha sido creado con exito`,'success')
+        Swal.fire('Nuevo Producto', `El producto ${producto.descripcion} ha sido creado con exito`,'success')
       }
     )
   }
 
+
+
+seleccionarFoto(event:any){
+  this.fotoSeleccionada=event.target.files[0];
+  console.log(this.fotoSeleccionada);
+}
 
   update():void{
     this.productoService.update(this.producto).subscribe(

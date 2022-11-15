@@ -9,7 +9,7 @@ export class ProductoModel {
     disciplina:DisciplinaModel;
     marca:MarcaModel;
     precioUnitario:number;
-    imagen:string;
+    imagen:string='';
     stock:number;
     servicio:boolean=false;
     estado:boolean=true;

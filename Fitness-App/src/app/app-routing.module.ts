@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { ComprobantesComponent } from './components/comprobantes/comprobantes.component';
 import { DashAdminComponent } from './components/dash-admin/dash-admin.component';
+import { DetalleProductoComponent } from './components/form-detalle-producto/form-detalle-producto.component';
 import { DisciplinasComponent } from './components/disciplinas/disciplinas.component';
 import { FormDisciplinaComponent } from './components/form-disciplina/form-disciplina.component';
 import { FormMarcaComponent } from './components/form-marca/form-marca.component';

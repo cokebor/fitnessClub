@@ -10,6 +10,6 @@ export class UsuarioModel {
     localidad:LocalidadModel;
     password:string;
     rol:RolModel;
-    imagen:string;
+    imagen:string='';
     estado:boolean=true;
 }

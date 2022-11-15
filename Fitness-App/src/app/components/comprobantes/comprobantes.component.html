@@ -22,7 +22,7 @@
                     <td>{{comprobante.fecha}} |date:"dd/MM/yyyy"</td>
                     <td>{{comprobante.usuario.apellido}}, {{comprobante.usuario.nombre}}</td>
                     <td>{{comprobante.items.length}}</td>
-                    <td>{{comprobante.total}}</td>
+                    <td>{{comprobante.total | currency: '$'}}</td>
                 </tr>
             </tbody>
           </table>

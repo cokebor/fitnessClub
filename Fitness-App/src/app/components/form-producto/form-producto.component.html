@@ -4,7 +4,7 @@
   </div>
   <hr />
 
-  <form #formProducto="ngForm">
+  <form #formProducto="ngForm" enctype="multipart/form-data">
     <div class="form-group row">
       <label for="descripcion" class="col-form-label col-sm-2"
         >Descripcion</label
@@ -145,10 +145,11 @@
       </div>
     </div>
     <br />
+    <!--
     <div class="form-group row">
       <label for="imagen" class="col-form-label col-sm-2">Imagen:</label>
       <div class="col-sm-5">
-        <input class="form-control" type="file" name="imagen" [(ngModel)]="producto.imagen" required #imagen="ngModel"/>
+        <input class="form-control" type="file" name="imagen" [(ngModel)]="producto.imagen" required #imagen="ngModel" (change)="seleccionarFoto($event)"/>
         <div
           class="alert alert-danger"
           *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
@@ -160,6 +161,9 @@
       </div>
     </div>
     <br>
+    -->
+    
+<br>
     <div class="form-group row">
         <label for="stock" class="col-form-label col-sm-2"
           >Stock</label

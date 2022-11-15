@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductoModel } from 'src/app/models/producto.model';
+import { ModalService } from 'src/app/services/modal.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
 
@@ -13,8 +14,9 @@ export class ProductosComponent implements OnInit {
 
   productos:ProductoModel[]=[];
   paginador:any;
+  productoSeleccionado:ProductoModel;
 
-  constructor(private productoService:ProductoService, private activateRoute:ActivatedRoute) { }
+  constructor(private productoService:ProductoService, private activateRoute:ActivatedRoute, private modalService:ModalService) { }
 
   ngOnInit(): void {
     this.obtenerProductos();
@@ -32,6 +34,16 @@ export class ProductosComponent implements OnInit {
     );
   }
   );  
+  this.modalService.notificarUpload.subscribe(
+    producto=>{
+      this.productos.map(productoOriginal=>{
+        if(producto.idProducto==productoOriginal.idProducto){
+          productoOriginal.imagen=producto.imagen;
+        }
+        return productoOriginal;
+      })
+    }
+  )
   }
 
   //Metodo para mostrar Si es o no servicio
@@ -82,5 +94,10 @@ export class ProductosComponent implements OnInit {
 
       } 
     })
+  }
+
+  abrirModal(producto:ProductoModel){
+    this.productoSeleccionado=producto;
+    this.modalService.abrirModal();
   }
 }

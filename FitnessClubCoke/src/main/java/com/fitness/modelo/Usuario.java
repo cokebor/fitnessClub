@@ -50,7 +50,7 @@ public class Usuario implements Serializable{
 	private Rol Rol;
 	
 	
-	@Column(name = "Imagen", length = 45)
+	@Column(name = "Imagen")
 	private String Imagen;
 	
 	@Column(name = "estado",nullable = false)

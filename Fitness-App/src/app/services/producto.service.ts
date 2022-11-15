@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -55,14 +55,39 @@ export class ProductoService {
     return this.http.post<any>(this.urlEndPoint,producto,{headers:this.httpHeaders}).pipe(
       map((response:any)=>response.producto as ProductoModel),
       catchError(e=>{
-        console.error(e.error.mensaje);
+//        console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
       })
     );
   }
 
+/*
+  guardar(producto:ProductoModel, archivo:File):Observable<ProductoModel>{
+    let formData=new FormData();
+    formData.append("archivo",archivo);
   
+    return this.http.post<any>(this.urlEndPoint,{producto,formData}).pipe(
+      map((response:any)=>response.producto as ProductoModel),
+      catchError(e=>{
+//        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error,'error');
+        return throwError(e);
+      })
+    );
+  }
+*/
+  subirFoto(archivo:File, idProducto):Observable<HttpEvent<{}>>{
+    let formData=new FormData();
+    formData.append("archivo",archivo);
+    formData.append("id",idProducto);
+
+    const req=new HttpRequest('POST',`${this.urlEndPoint}/upload`, formData,{
+      reportProgress:true
+    });
+
+    return this.http.request(req);
+  }
 
   getProducto(idProducto:number):Observable<ProductoModel>{
     return this.http.get<ProductoModel>(`${this.urlEndPoint}/${idProducto}`).pipe(

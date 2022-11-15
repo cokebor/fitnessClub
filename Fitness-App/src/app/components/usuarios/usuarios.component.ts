@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { ModalService } from 'src/app/services/modal.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -13,8 +14,9 @@ export class UsuariosComponent implements OnInit {
 
   usuarios:UsuarioModel[]=[];
   paginador:any;
+  usuarioSeleccionado:UsuarioModel;
 
-  constructor(private usuarioService:UsuarioService, private activateRoute:ActivatedRoute) { }
+  constructor(private usuarioService:UsuarioService, private activateRoute:ActivatedRoute, private modalService:ModalService) { }
 
   ngOnInit(): void {
       this.obtenerUsuarios();
@@ -32,6 +34,16 @@ export class UsuariosComponent implements OnInit {
     );
   }
   );  
+  this.modalService.notificarUpload.subscribe(
+    usuario=>{
+      this.usuarios.map(usuarioOriginal=>{
+        if(usuario.idUsuario==usuarioOriginal.idUsuario){
+          usuarioOriginal.imagen=usuario.imagen;
+        }
+        return usuarioOriginal;
+      })
+    }
+  )
   }
 
   
@@ -76,5 +88,10 @@ export class UsuariosComponent implements OnInit {
       return 'Activo';
     }
     return 'Deshablitado';
+  }
+
+  abrirModal(usuario:UsuarioModel){
+    this.usuarioSeleccionado=usuario;
+    this.modalService.abrirModal();
   }
 }

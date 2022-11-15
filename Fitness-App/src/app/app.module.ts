@@ -25,6 +25,8 @@ import { DashUsuarioComponent } from './components/dash-usuario/dash-usuario.com
 import localeES from '@angular/common/locales/ar';
 import { registerLocaleData } from '@angular/common';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { DetalleProductoComponent } from './components/form-detalle-producto/form-detalle-producto.component';
+import { FormDetalleUsuarioComponent } from './components/form-detalle-usuario/form-detalle-usuario.component';
 
 registerLocaleData(localeES,'es');
 
@@ -48,7 +50,9 @@ registerLocaleData(localeES,'es');
     FormRubroComponent,
     FormDisciplinaComponent,
     DashUsuarioComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleProductoComponent,
+    FormDetalleUsuarioComponent
   ],
   imports: [
     BrowserModule,

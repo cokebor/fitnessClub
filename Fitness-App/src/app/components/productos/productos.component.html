@@ -1,3 +1,5 @@
+<detalle-producto *ngIf="productoSeleccionado" [producto]="productoSeleccionado"></detalle-producto>
+  
   <div class="grilla">
     <div>
         <h1 >Gestion de Productos</h1>
@@ -12,7 +14,7 @@
     <table class="table table-bordered table-striped" *ngIf="productos.length>0">
         <thead>
             <tr>
-                <th>Id Producto</th>
+                <th>#</th>
                 <th>Marca</th>
                 <th>Descripcion</th>
                 <th>Rubro</th>
@@ -27,7 +29,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let producto of productos">
-                <td>{{producto.idProducto}}</td>
+                <td><img *ngIf="producto?.imagen" src="http://localhost:8080/api/productos/uploads/img/{{producto.imagen}}" alt="{{producto.imagen}}" class="img-thumbnail rounded" (click)="abrirModal(producto)" style="width:64px; cursor: pointer;"></td>
                 <td>{{producto.marca.nombre}}</td>
                 <td>{{producto.descripcion}}</td>
                 <td>{{producto.rubro.nombre}}</td>
