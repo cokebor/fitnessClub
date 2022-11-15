@@ -1,0 +1,35 @@
+<div class="grilla">
+    <div>
+        <h1 > Gestion de Disciplinas</h1>
+    </div>
+    <hr>
+    <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/disciplinas/form']">Crear Disciplina</button>
+    </div>
+    <div *ngIf="disciplinas.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+    </div>
+        <table class="table table-bordered table-striped" *ngIf="disciplinas.length>0">
+            <thead>
+                <tr>
+                    <th>Id Disciplina</th>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let disciplina of disciplinas">
+                    <td>{{disciplina.idDisciplina}}</td>
+                    <td>{{disciplina.nombre}}</td>
+                    <td>
+                        <button type="button" name="editar" [routerLink]="['/disciplinas/form',disciplina.idDisciplina]" class="btn btn-primary btn-sm">editar</button>
+                    </td>
+                    <td>
+                        <button type="button" name="eliminar" (click)="delete(disciplina)" class="btn btn-danger btn-sm">eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+          <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="disciplinas"></paginator-nav>
+</div>

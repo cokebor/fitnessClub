@@ -1,0 +1,36 @@
+<div class="grilla">
+    <div>
+        <h1 >{{titulo}}</h1>
+    </div>
+    <hr>
+
+    
+    <form #formMarca="ngForm">
+        <div class="form-group row">
+            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+            <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="marca.nombre" name="nombre" required minlength="3" #nombre="ngModel">
+                    <div
+          class="alert alert-danger"
+          *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+        >
+          <div *ngIf="nombre.errors?.['required']">
+            El Nombre es requerido
+          </div>
+          <div *ngIf="nombre.errors?.['minlength']">
+            Debe tener 3 caracteres como minimo
+          </div>
+        </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role="button" (click)="guardar()" *ngIf="!marca.idMarca else elseBlock"  [disabled]="!formMarca.form.valid">Crear</button>
+                <ng-template #elseBlock>
+                    <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!formMarca.form.valid">Editar</button>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+</div>

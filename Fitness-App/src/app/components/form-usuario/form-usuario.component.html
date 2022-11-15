@@ -1,0 +1,209 @@
+<div class="grilla">
+    <div>
+        <h1 >{{titulo}}</h1>
+    </div>
+    <hr>
+
+    
+    <form #formUsuario="ngForm">
+        <div class="form-group row">
+            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+            <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required #nombre="ngModel" minlength="3">
+                    <div
+          class="alert alert-danger"
+          *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+        >
+          <div *ngIf="nombre.errors?.['required']">
+            El Nombre es requerido
+          </div>
+          <div *ngIf="nombre.errors?.['minlength']">
+            Debe tener 3 caracteres como minimo
+          </div>
+        </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+            <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" required #apellido="ngModel" minlength="3">
+                    <div
+          class="alert alert-danger"
+          *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+        >
+          <div *ngIf="apellido.errors?.['required']">
+            El Apellido es requerido
+          </div>
+          <div *ngIf="apellido.errors?.['minlength']">
+            Debe tener 3 caracteres como minimo
+          </div>
+        </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="email" class="col-form-label col-sm-2">Email</label>
+            <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email" required email #email="ngModel" minlength="3">
+                    <div
+                    class="alert alert-danger"
+                    *ngIf="email.invalid && (email.dirty || email.touched)"
+                  >
+                    <div *ngIf="email.errors?.['required']">
+                      El Email es requerido
+                    </div>
+                    <div *ngIf="email.errors?.['email']">
+                      El Email debe terner un formato valido
+                    </div>
+                    <div *ngIf="email.errors?.['minlength']">
+                      Debe tener 3 caracteres como minimo
+                    </div>
+                  </div>      
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="pais" class="col-form-label col-sm-2">Pais</label>
+            <div class="col-sm-5">
+              <select
+                [compareWith]="compararPais"
+                class="form-control"
+                [(ngModel)]="pais"
+                name="pais"
+                (change)="obtenerProvincias()"
+                required
+                #paiss="ngModel"
+              >
+                <option [ngValue]="undefined">--- Seleccionar Pais ---</option>
+                <option *ngFor="let pais of paises" [ngValue]="pais">
+                  {{ pais.nombre }}
+                </option>
+              </select>
+              <div
+          class="alert alert-danger"
+          *ngIf="paiss.invalid && (paiss.dirty || paiss.touched)"
+        >
+          <div *ngIf="paiss.errors?.['required']">
+            El Pais es requerido
+          </div>
+        </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group row">
+            <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
+            <div class="col-sm-5">
+              <select
+                [compareWith]="compararProvincia"
+                class="form-control"
+                [(ngModel)]="provincia"
+                name="provincia"
+                (change)="obtenerLocalidades()"
+                required
+                #provinciaa="ngModel"
+              >
+                <option [ngValue]="undefined">--- Seleccionar Provincia ---</option>
+                <option *ngFor="let provincia of provincias" [ngValue]="provincia">
+                  {{ provincia.nombre }}
+                </option>
+              </select>
+              <div
+          class="alert alert-danger"
+          *ngIf="provinciaa.invalid && (provinciaa.dirty || provinciaa.touched)"
+        >
+          <div *ngIf="provinciaa.errors?.['required']">
+            La Provincia es requerida
+          </div>
+        </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group row">
+            <label for="localidad" class="col-form-label col-sm-2">Localidad</label>
+            <div class="col-sm-5">
+              <select
+                [compareWith]="compararLocalidad"
+                class="form-control"
+                [(ngModel)]="usuario.localidad"
+                name="localidad"
+                required
+                #localidad="ngModel"
+              >
+                <option [ngValue]="undefined">--- Seleccionar Localidad ---</option>
+                <option *ngFor="let localidad of localidades" [ngValue]="localidad">
+                  {{ localidad.nombre }}
+                </option>
+              </select>
+              <div
+          class="alert alert-danger"
+          *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)"
+        >
+          <div *ngIf="localidad.errors?.['required']">
+            La Localidad es requerida
+          </div>
+        </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group row">
+            <label for="direccion" class="col-form-label col-sm-2">Direccion</label>
+            <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.direccion" name="direccion">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <label for="password" class="col-form-label col-sm-2">Password</label>
+          <div class="col-sm-6">
+                  <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" required #password="ngModel" minlength="3">
+                  <div
+                  class="alert alert-danger"
+                  *ngIf="password.invalid && (password.dirty || password.touched)"
+                >
+                  <div *ngIf="password.errors?.['required']">
+                    El Password es requerido
+                  </div>
+                  <div *ngIf="password.errors?.['minlength']">
+                    Debe tener 3 caracteres como minimo
+                  </div>
+                </div>    
+          </div>
+      </div>
+      <br>
+      <div class="form-group row">
+        <label for="password" class="col-form-label col-sm-2">Repetir Password</label>
+        <div class="col-sm-6">
+                <input type="password" class="form-control" name="password2">
+        </div>
+    </div>
+    
+        <br>
+        <div class="form-group row">
+            <label for="imagen" class="col-form-label col-sm-2">Imagen:</label>
+            <div class="col-sm-5">
+              <input class="form-control" type="file" name="imagen" [(ngModel)]="usuario.imagen" required #imagen="ngModel"/>
+              
+              <div
+          class="alert alert-danger"
+          *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+        >
+          <div *ngIf="imagen.errors?.['required']">
+            La Imagen es requerida
+          </div>
+        </div>
+            </div>
+          </div>
+        <br>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+              <button class="btn btn-primary" role="button" (click)="guardar()" *ngIf="!usuario.idUsuario else elseBlock" [disabled]="!formUsuario.form.valid">Crear</button>
+              <ng-template #elseBlock>
+                  <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!formUsuario.form.valid">Editar</button>
+              </ng-template>
+          </div>
+      </div>
+    </form>
+</div>

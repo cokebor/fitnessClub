@@ -1,0 +1,15 @@
+.dashUsuario{
+    opacity: calc(97%);
+}
+
+#menu{
+  position:fixed;
+  top: 150px;
+  width: 200px;
+  box-shadow: 5px 5px 5px 5px rgb(182, 182, 182);
+}
+
+  #menu a{
+    text-decoration: none;
+  }
+

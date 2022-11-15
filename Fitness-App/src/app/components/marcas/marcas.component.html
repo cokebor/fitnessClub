@@ -1,0 +1,35 @@
+  <div class="grilla">
+    <div>
+        <h1 > Gestion de Marcas</h1>
+    </div>
+    <hr>
+    <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/marcas/form']">Crear Marca</button>
+    </div>
+    <div *ngIf="marcas.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+    </div>
+        <table class="table table-bordered table-striped" *ngIf="marcas.length>0">
+            <thead>
+                <tr>
+                    <th>Id Marca</th>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let marca of marcas">
+                    <td>{{marca.idMarca}}</td>
+                    <td>{{marca.nombre}}</td>
+                    <td>
+                        <button type="button" name="button" [routerLink]="['/marcas/form',marca.idMarca]" class="btn btn-primary btn-sm">editar</button>
+                    </td>
+                    <td>
+                        <button type="button" name="eliminar" (click)="delete(marca)" class="btn btn-danger btn-sm">eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+          <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="marcas"></paginator-nav>
+</div>

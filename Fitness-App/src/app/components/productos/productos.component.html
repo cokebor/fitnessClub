@@ -1,0 +1,49 @@
+  <div class="grilla">
+    <div>
+        <h1 >Gestion de Productos</h1>
+    </div>
+    <hr>
+    <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/productos/form']">Crear Producto</button>
+    </div>
+    <div *ngIf="productos.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="productos.length>0">
+        <thead>
+            <tr>
+                <th>Id Producto</th>
+                <th>Marca</th>
+                <th>Descripcion</th>
+                <th>Rubro</th>
+                <th>Disciplina</th>
+                <th>Precio Unitario</th>
+                <th>Stock</th>
+                <th>Servicio</th>
+                <th>Estado</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{producto.idProducto}}</td>
+                <td>{{producto.marca.nombre}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.rubro.nombre}}</td>
+                <td>{{producto.disciplina.nombre}}</td>
+                <td>{{producto.precioUnitario}}</td>
+                <td>{{producto.stock}}</td>
+                <td>{{esServicio(producto.servicio)}}</td>
+                <td>{{estado(producto.estado)}}</td>
+                <td>
+                    <button type="button" name="editar" [routerLink]="['/productos/form',producto.idProducto]" class="btn btn-primary btn-sm">editar</button>
+                </td>
+                <td>
+                    <button type="button" name="eliminar" (click)="delete(producto)" class="btn btn-danger btn-sm">eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+      <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="productos"></paginator-nav>
+</div>

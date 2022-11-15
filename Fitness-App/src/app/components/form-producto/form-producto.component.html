@@ -1,0 +1,214 @@
+<div class="grilla">
+  <div>
+    <h1>{{ titulo }}</h1>
+  </div>
+  <hr />
+
+  <form #formProducto="ngForm">
+    <div class="form-group row">
+      <label for="descripcion" class="col-form-label col-sm-2"
+        >Descripcion</label
+      >
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="producto.descripcion"
+          name="descripcion"
+          required
+          #descripcion="ngModel"
+          minlength="3"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+        >
+          <div *ngIf="descripcion.errors?.['required']">
+            La Descripcion es requerida
+          </div>
+          <div *ngIf="descripcion.errors?.['minlength']">
+            Debe tener 3 caracteres como minimo
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="rubro" class="col-form-label col-sm-2">Rubro</label>
+      <div class="col-sm-5">
+        <select
+          [compareWith]="compararRubro"
+          class="form-control"
+          [(ngModel)]="producto.rubro"
+          name="rubro"
+          required
+          #rubro="ngModel"
+          minlength="3"
+        >
+          <option [ngValue]="undefined">--- Seleccionar Rubro ---</option>
+          <option *ngFor="let rubro of rubros" [ngValue]="rubro">
+            {{ rubro.nombre }}
+          </option>
+        </select>
+        <div
+          class="alert alert-danger"
+          *ngIf="rubro.invalid && (rubro.dirty || rubro.touched)"
+        >
+          <div *ngIf="rubro.errors?.['required']">
+            El Rubro es requerido
+          </div>
+          <div *ngIf="rubro.errors?.['minlength']">
+            Debe tener 3 caracteres como minimo
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="disciplina" class="col-form-label col-sm-2">Disciplina</label>
+      <div class="col-sm-5">
+        <select
+          [compareWith]="compararDisciplina"
+          class="form-control"
+          [(ngModel)]="producto.disciplina"
+          name="disciplina"
+          required
+          #disciplina="ngModel"
+        >
+          <option [ngValue]="undefined">--- Seleccionar Disciplina ---</option>
+          <option *ngFor="let disciplina of disciplinas" [ngValue]="disciplina">
+            {{ disciplina.nombre }}
+          </option>
+        </select>
+        <div
+          class="alert alert-danger"
+          *ngIf="disciplina.invalid && (disciplina.dirty || disciplina.touched)"
+        >
+          <div *ngIf="disciplina.errors?.['required']">
+            La Disciplina es requerida
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="marca" class="col-form-label col-sm-2">Marca</label>
+      <div class="col-sm-5">
+        <select
+          [compareWith]="compararMarca"
+          class="form-control"
+          [(ngModel)]="producto.marca"
+          name="marca"
+          required
+          #marca="ngModel"
+        >
+          <option [ngValue]="undefined">--- Seleccionar Marca ---</option>
+          <option *ngFor="let marca of marcas" [ngValue]="marca">
+            {{ marca.nombre }}
+          </option>
+        </select>
+        <div
+          class="alert alert-danger"
+          *ngIf="marca.invalid && (marca.dirty || marca.touched)"
+        >
+          <div *ngIf="marca.errors?.['required']">
+            La Marca es requerida
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="precioUnitario" class="col-form-label col-sm-2"
+        >Precio Unitario</label
+      >
+      <div class="col-sm-5">
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="producto.precioUnitario"
+          name="precioUnitario"
+          required
+          #precioUnitario="ngModel"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="precioUnitario.invalid && (precioUnitario.dirty || precioUnitario.touched)"
+        >
+          <div *ngIf="precioUnitario.errors?.['required']">
+            El precio Unitario es requerido
+          </div>
+          <div *ngIf="producto.precioUnitario<=0">
+            El valor debe ser mayor a cero
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="imagen" class="col-form-label col-sm-2">Imagen:</label>
+      <div class="col-sm-5">
+        <input class="form-control" type="file" name="imagen" [(ngModel)]="producto.imagen" required #imagen="ngModel"/>
+        <div
+          class="alert alert-danger"
+          *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+        >
+          <div *ngIf="imagen.errors?.['required']">
+            La Imagen es requerida
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="stock" class="col-form-label col-sm-2"
+          >Stock</label
+        >
+        <div class="col-sm-5">
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="producto.stock"
+            name="stock"
+            required
+            #stock="ngModel"
+          />
+          <div
+          class="alert alert-danger"
+          *ngIf="stock.invalid && (stock.dirty || stock.touched)"
+        >
+          <div *ngIf="stock.errors?.['required']">
+            El Stock es requerido
+          </div>
+        </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="form-check col-sm-3">
+            <input class="form-check-input" type="checkbox" [value]="producto.servicio" name="servicio" [(ngModel)]="producto.servicio">
+            <label class="form-check-label col-sm-2" for="servicio">
+              Servicio
+            </label>
+          </div>
+          <div class="form-check col-sm-3">
+            <input class="form-check-input" type="checkbox" [value]="producto.estado" name="estado" [(ngModel)]="producto.estado">
+            <label class="form-check-label col-sm-2" for="estado">
+              Activo 
+            </label>
+          </div>
+      </div>
+   
+    
+
+      <br>
+      <div class="form-group row">
+        <div class="col-sm-6">
+            <button class="btn btn-primary" role="button" (click)="guardar()" *ngIf="!producto.idProducto else elseBlock"  [disabled]="!formProducto.form.valid">Crear</button>
+            <ng-template #elseBlock>
+                <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!formProducto.form.valid">Editar</button>
+            </ng-template>
+        </div>
+    </div>
+  </form>
+</div>

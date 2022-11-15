@@ -1,0 +1,29 @@
+  <div class="grilla">
+    <div>
+        <h1 >Carrito de Compras</h1>
+    </div>
+    <hr>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>{{item.producto.descripcion}}</td>
+                <td>{{item.cantidad}}</td>
+                <td>{{item.precioUnitario}}</td>
+                <td>{{item.subTotal()}}</td>
+            </tr>
+        </tbody>
+      </table>
+
+      <div class="total" >
+        <p><strong>Total: $ {{calcularTotal()}}</strong> </p>
+        <button type="button" class="btn btn-outline-primary">Comprar</button>
+      </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="grilla">
+    <div>
+        <h1 > Gestion de Rubros</h1>
+    </div>
+    <hr>
+    <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/rubros/form']">Crear Rubro</button>
+    </div>
+    <div *ngIf="rubros.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+    </div>
+        <table class="table table-bordered table-striped" *ngIf="rubros.length>0">
+            <thead>
+                <tr>
+                    <th>Id Rubro</th>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let rubro of rubros">
+                    <td>{{rubro.idRubro}}</td>
+                    <td>{{rubro.nombre}}</td>
+                    <td>
+                        <button type="button" name="editar" [routerLink]="['/rubros/form',rubro.idRubro]" class="btn btn-primary btn-sm">editar</button>
+                    </td>
+                    <td>
+                        <button type="button" name="eliminar" (click)="delete(rubro)" class="btn btn-danger btn-sm">eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+          <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="rubros"></paginator-nav>
+</div>
