@@ -19,6 +19,8 @@ import { LoginComponent } from './components/login/login.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { FormComponent } from './components/form/form.component';
+import { DashUsuarioComponent } from './components/dash-usuario/dash-usuario.component';
+import { ComprobantesUserComponent } from './components/comprobantes-user/comprobantes-user.component';
 
 
 const routes: Routes = [
@@ -27,12 +29,13 @@ const routes: Routes = [
   {path:'nosotros', component: NosotrosComponent},
   {path:'contacto', component: FormComponent},
 
-
   {path:'carrito',component:CarritoComponent},
   {path:'login',component:LoginComponent},
   {path:'comprobantes',component:ComprobantesComponent},
   {path:'comprobantes/page/:page',component:ComprobantesComponent},
+  {path:'comprobantes-user',component:ComprobantesUserComponent},
   {path:'dashboardAdmin',component:DashAdminComponent},
+  {path:'dashboardUser',component:DashUsuarioComponent},
   {path:'marcas',component:MarcasComponent},
   {path:'marcas/page/:page',component:MarcasComponent},
   {path:'marcas/form',component:FormMarcaComponent},

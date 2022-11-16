@@ -1,11 +1,15 @@
-<div class="grilla">
+<div class="grilla" id="principles">
     <div>
-        <h1 >Listado de Comprobantes</h1>
-    </div>
-    <hr>
-    <div *ngIf="comprobantes.length==0" class="alert alert-info">
-        No hay registros en la base de datos!
-    </div>
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/dashboardAdmin']">Atrás</button>
+        </div>
+        <div>
+            <h1>Listado de Comprobantes</h1>
+        </div>
+        <hr>
+        <div *ngIf="comprobantes.length==0" class="alert alert-info">
+            No hay registros en la base de datos!
+        </div>
         <table class="table table-bordered table-striped" *ngIf="comprobantes.length>0">
             <thead>
                 <tr>
@@ -25,6 +29,6 @@
                     <td>{{comprobante.total | currency: '$'}}</td>
                 </tr>
             </tbody>
-          </table>
-          <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="comprobantes"></paginator-nav>
-</div>
+        </table>
+        <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="comprobantes"></paginator-nav>
+    </div>
