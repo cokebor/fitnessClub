@@ -1,6 +1,11 @@
-<div class="grilla">
+<div class="grilla" id="principles">
+  <div class="my-2 text-left">
+    
+</div>
     <div>
-        <h1 >{{titulo}}</h1>
+      <h2>
+        <span class="span4">{{titulo}}.</span>
+      </h2>
     </div>
     <hr>
 
@@ -11,7 +16,7 @@
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required #nombre="ngModel" minlength="3">
                     <div
-          class="alert alert-info"
+          class="alert alert-primary"
           *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
         >
           <div *ngIf="nombre.errors?.['required']">
@@ -23,13 +28,13 @@
         </div>
             </div>
         </div>
-        <br>
+   
         <div class="form-group row">
             <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" required #apellido="ngModel" minlength="3">
                     <div
-          class="alert alert-info"
+          class="alert alert-primary"
           *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
         >
           <div *ngIf="apellido.errors?.['required']">
@@ -41,13 +46,13 @@
         </div>
             </div>
         </div>
-        <br>
+        
         <div class="form-group row">
           <label for="dni" class="col-form-label col-sm-2">DNI</label>
           <div class="col-sm-6">
                   <input type="number" class="form-control" [(ngModel)]="usuario.dni" name="dni" required #dni="ngModel" minlength="7">
                   <div
-                  class="alert alert-info"
+                  class="alert alert-primary"
                   *ngIf="dni.invalid && (dni.dirty || dni.touched)"
                 >
                   <div *ngIf="password.errors?.['required']">
@@ -59,14 +64,14 @@
                 </div>    
           </div>
       </div>
-<br>
+
 
         <div class="form-group row">
             <label for="email" class="col-form-label col-sm-2">Email</label>
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email" required email #email="ngModel" minlength="3">
                     <div
-                    class="alert alert-info"
+                    class="alert alert-primary"
                     *ngIf="email.invalid && (email.dirty || email.touched)"
                   >
                     <div *ngIf="email.errors?.['required']">
@@ -81,7 +86,7 @@
                   </div>      
             </div>
         </div>
-        <br>
+
 
         <div class="form-group row">
             <label for="pais" class="col-form-label col-sm-2">Pais</label>
@@ -101,7 +106,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-info"
+          class="alert alert-primary"
           *ngIf="paiss.invalid && (paiss.dirty || paiss.touched)"
         >
           <div *ngIf="paiss.errors?.['required']">
@@ -110,7 +115,6 @@
         </div>
             </div>
           </div>
-          <br />
           <div class="form-group row">
             <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
             <div class="col-sm-5">
@@ -129,7 +133,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-info"
+          class="alert alert-primary"
           *ngIf="provinciaa.invalid && (provinciaa.dirty || provinciaa.touched)"
         >
           <div *ngIf="provinciaa.errors?.['required']">
@@ -138,7 +142,7 @@
         </div>
             </div>
           </div>
-          <br />
+        
           <div class="form-group row">
             <label for="localidad" class="col-form-label col-sm-2">Localidad</label>
             <div class="col-sm-5">
@@ -156,7 +160,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-info"
+          class="alert alert-primary"
           *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)"
         >
           <div *ngIf="localidad.errors?.['required']">
@@ -165,20 +169,20 @@
         </div>
             </div>
           </div>
-          <br />
+        
           <div class="form-group row">
             <label for="direccion" class="col-form-label col-sm-2">Direccion</label>
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.direccion" name="direccion">
             </div>
         </div>
-        <br>
+        
         <div class="form-group row">
           <label for="password" class="col-form-label col-sm-2">Password</label>
           <div class="col-sm-6">
                   <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" required #password="ngModel" minlength="3">
                   <div
-                  class="alert alert-info"
+                  class="alert alert-primary"
                   *ngIf="password.invalid && (password.dirty || password.touched)"
                 >
                   <div *ngIf="password.errors?.['required']">
@@ -190,13 +194,12 @@
                 </div>    
           </div>
       </div>
-      <br>
       <div class="form-group row">
         <label for="password2" class="col-form-label col-sm-2">Confirmar Password</label>
         <div class="col-sm-6">
                 <input type="password" class="form-control" name="password2" required [(ngModel)]="usuario.passwordconfirm" #passwordconfirm="ngModel">
                 <div
-                class="alert alert-info"
+                class="alert alert-primary"
                 *ngIf="passwordconfirm.invalid && (passwordconfirm.dirty || passwordconfirm.touched)"
               >
                 <div *ngIf="passwordconfirm.errors?.['required']">
@@ -229,7 +232,7 @@
             </div>
           </div>
         -->
-        <br>
+        
 
         <div class="form-group row">
           <div class="col-sm-6">
