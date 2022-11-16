@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,11 +31,13 @@ public class ComprobanteRestController {
 	@Autowired
 	private IComprobanteService comprobanteService;
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/comprobantes")
 	public List<Comprobante> listarTodos(){
 		return comprobanteService.listarTodos();
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/comprobantes/page/{page}")
 	public Page<Comprobante> listarTodos(@PathVariable Integer page){
 		Pageable pageable=PageRequest.of(page, 6);
@@ -62,6 +65,7 @@ public class ComprobanteRestController {
 		return new ResponseEntity<Comprobante>(comp,HttpStatus.OK);
 	}
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@PostMapping("/comprobantes")
 	public ResponseEntity<?> guardar(@RequestBody Comprobante comprobante) {
 		Comprobante compNuevo=null;
@@ -81,6 +85,7 @@ public class ComprobanteRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/comprobantes/usuario/{idUsuario}")
 	public ResponseEntity<?> listarPorUsuario(@PathVariable Long idUsuario) {
 		List<Comprobante> comp=null;
@@ -102,6 +107,7 @@ public class ComprobanteRestController {
 		return new ResponseEntity<List<Comprobante>>(comp,HttpStatus.OK);
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/comprobantes/usuario/page/{page}/{idUsuario}")
 	public ResponseEntity<?> listarPorUsuario(@PathVariable Long idUsuario,@PathVariable Integer page){
 		Page<Comprobante> comp=null;

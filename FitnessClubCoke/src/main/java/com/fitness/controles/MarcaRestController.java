@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,17 +32,20 @@ public class MarcaRestController {
 	@Autowired
 	private IMarcaService marcaService;
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/marcas")
 	public List<Marca> listarTodas() {
 		return marcaService.listarTodas();
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/marcas/page/{page}")
 	public Page<Marca> listarTodas(@PathVariable Integer page){
 		Pageable pageable=PageRequest.of(page, 6);
 		return marcaService.listarTodas(pageable);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/marcas/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 
@@ -63,7 +67,8 @@ public class MarcaRestController {
 		}
 		return new ResponseEntity<Marca>(mar, HttpStatus.OK);
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/marcas")
 	public ResponseEntity<?> guardar(@RequestBody Marca marca) {
 
@@ -85,6 +90,7 @@ public class MarcaRestController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/marcas/{id}")
 	public ResponseEntity<?> actualizar(@RequestBody Marca marca, @PathVariable Long id) {
 		Marca marcaActual = marcaService.buscarPorId(id);
@@ -111,6 +117,7 @@ public class MarcaRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/marcas/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 		Map<String,Object> response=new HashMap<>();

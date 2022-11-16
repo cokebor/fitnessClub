@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,17 +32,20 @@ public class RubroRestController {
 	@Autowired
 	private IRubroService rubroService;
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/rubros")
 	public List<Rubro> listarTodas(){
 		return rubroService.listarTodos();
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/rubros/page/{page}")
 	public Page<Rubro> listarTodos(@PathVariable Integer page){
 		Pageable pageable=PageRequest.of(page, 6);
 		return rubroService.listarTodos(pageable);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/rubros/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 
@@ -64,6 +68,7 @@ public class RubroRestController {
 		return new ResponseEntity<Rubro>(ru,HttpStatus.OK);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/rubros")	
 	public ResponseEntity<?> guardar(@RequestBody Rubro rubro) {
 		
@@ -84,6 +89,7 @@ public class RubroRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/rubros/{id}")
 	public ResponseEntity<?> actualizar(@RequestBody Rubro rubro, @PathVariable Long id) {
 		
@@ -113,6 +119,7 @@ public class RubroRestController {
 		
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/rubros/{id}")	
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 		

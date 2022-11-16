@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,17 +36,20 @@ public class DisciplinaRestController {
 	@Autowired
 	private IDisciplinaService disciplinaService;
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/disciplinas")
 	public List<Disciplina> listarTodas(){
 		return disciplinaService.listarTodas();
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/disciplinas/page/{page}")
 	public Page<Disciplina> listarTodas(@PathVariable Integer page){
 		Pageable pageable=PageRequest.of(page, 6);
 		return disciplinaService.listarTodas(pageable);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/disciplinas/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 		
@@ -68,6 +72,7 @@ public class DisciplinaRestController {
 		return new ResponseEntity<Disciplina>(dis,HttpStatus.OK);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/disciplinas")
 	public ResponseEntity<?> guardar(@Valid @RequestBody Disciplina disciplina, BindingResult result) {
 		
@@ -99,7 +104,7 @@ public class DisciplinaRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 		
 	}
-	
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/disciplinas/{id}")
 	public ResponseEntity<?> actualizar(@Valid @RequestBody Disciplina disciplina, BindingResult result, @PathVariable Long id) {
 		Disciplina disciplinaActual=disciplinaService.buscarPorId(id);
@@ -137,6 +142,7 @@ public class DisciplinaRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/disciplinas/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 		Map<String,Object> response=new HashMap<>();

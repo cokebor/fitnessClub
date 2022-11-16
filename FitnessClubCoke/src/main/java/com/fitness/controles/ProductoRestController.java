@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +48,13 @@ public class ProductoRestController {
 
 	private final Logger log = LoggerFactory.getLogger(ProductoRestController.class);
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/productos")
 	public List<Producto> listarTodas() {
 		return productoService.listarTodos();
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/productos/page/{page}")
 	public Page<Producto> listarTodos(@PathVariable Integer page) {
 		Pageable pageable = PageRequest.of(page, 6);
@@ -90,6 +93,7 @@ public class ProductoRestController {
 		return new ResponseEntity<Producto>(pro, HttpStatus.OK);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/productos")
 	public ResponseEntity<?> guardar(@RequestBody Producto producto) {
 
@@ -110,7 +114,8 @@ public class ProductoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/productos/{id}")
 	public ResponseEntity<?> actualizar(@RequestBody Producto producto, @PathVariable Long id) {
 		Producto productoActual = productoService.buscarPorId(id);
@@ -147,7 +152,8 @@ public class ProductoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/productos/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 
@@ -167,7 +173,8 @@ public class ProductoRestController {
 		response.put("mensaje", "Producto eliminado con exito!");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/productos/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
 		Map<String, Object> response = new HashMap<>();
