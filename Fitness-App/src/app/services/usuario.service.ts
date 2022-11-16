@@ -18,8 +18,16 @@ export class UsuarioService {
   constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
 
   private isNoAutorizado(e):boolean{
-    if(e.status==401 || e.status==403){
+    if(e.status==401 ){
+      if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }
       this.router.navigate(['/login']);
+      return true;
+    }
+    if(e.status==403){
+      Swal.fire('Acceso denegado', `${this.authService.usuario.apellido}, ${this.authService.usuario.nombre} no tiene acceso a este recurso`,'warning')
+      //this.router.navigate(['/usuarios']);
       return true;
     }
     return false;
@@ -38,7 +46,7 @@ export class UsuarioService {
   }
 */
   getUsuarios(page:number):Observable<any>{
-    return this.http.get(this.urlEndPoint+'/page/'+page,{headers:this.agregarAuthorizationHeader()}).pipe(
+    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
       map((response:any)=>{
         (response.content as UsuarioModel[]).map(
           usuario=>{

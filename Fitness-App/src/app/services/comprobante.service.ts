@@ -14,12 +14,16 @@ export class ComprobanteService {
 
   private urlEndPoint:string='http://localhost:8080/api/comprobantes'
 
-  private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
+  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
+  
 
   constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
   
   private isNoAutorizado(e):boolean{
     if(e.status==401 ){
+      if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }
       this.router.navigate(['/login']);
       return true;
     }

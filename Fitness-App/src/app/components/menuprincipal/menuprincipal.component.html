@@ -1,7 +1,10 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top p-3">
     <div class="container-fluid w-50">
+      
+      
+
       <a class="navbar-brand">
-        <img src="../assets/img/logo.png" alt="FitnessClub" width="220">
+        <img src="../assets/img/logo.png" alt="FitnessClub" width="180" [routerLink]="['principal']">
       </a>
 
 
@@ -17,12 +20,23 @@
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/carrito">Carrito</a>
           </li>
+
+          <li class="nav-item dropdown"routerLinkActive="active">
+            <a class="nav-link" routerLink="/nosotros">
+          Nosotros
+          </a>
+        </li>
+
+      <li class="nav-item"routerLinkActive="active">
+          <a class="nav-link" routerLink="/contacto">Contacto</a>
+      </li>
+
         </ul>
 
-
+      
         <ul class="navbar-nav navbar-right">
           <li *ngIf="!authService.isAuthenticated()"class="dropdown">
-            <a [routerLink]="['/login']" class="btn btn-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar
+            <a [routerLink]="['/login']" class="text-light btn btn-info btn-info-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar
             </a>
             <div class="dropdown-menu">
               <button [routerLink]="['/usuarios/form']" class="dropdown-item" type="submit">Registrarse</button>

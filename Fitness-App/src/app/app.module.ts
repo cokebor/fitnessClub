@@ -29,6 +29,11 @@ import { DetalleProductoComponent } from './components/form-detalle-producto/for
 import { FormDetalleUsuarioComponent } from './components/form-detalle-usuario/form-detalle-usuario.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatchPasswordDirective } from './directives/MatchPasswordDirective';
+import { PrincipalComponent } from './components/principal/principal.component';
+import { NosotrosComponent } from './components/nosotros/nosotros.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { FormComponent } from './components/form/form.component';
+import { HeroTitleComponent } from './components/Hero-Title/Hero-Title.component';
 
 registerLocaleData(localeES,'es');
 
@@ -56,7 +61,12 @@ registerLocaleData(localeES,'es');
     DetalleProductoComponent,
     FormDetalleUsuarioComponent,
     LoginComponent,
-    MatchPasswordDirective
+    MatchPasswordDirective,
+    PrincipalComponent,
+    NosotrosComponent,
+    SliderComponent,
+    FormComponent,
+    HeroTitleComponent
   ],
   imports: [
     BrowserModule,

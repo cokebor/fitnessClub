@@ -17,6 +17,7 @@ export class UsuariosComponent implements OnInit {
   usuarios:UsuarioModel[]=[];
   paginador:any;
   usuarioSeleccionado:UsuarioModel;
+  titulo:string='Gestion de Usuarios'
 
   constructor(private usuarioService:UsuarioService, private activateRoute:ActivatedRoute, private modalService:ModalService, public autService:AuthService) { }
 

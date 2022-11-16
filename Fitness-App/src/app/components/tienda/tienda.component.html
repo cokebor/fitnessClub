@@ -7,7 +7,7 @@
         <div class="card animated fadeIn fast " *ngFor="let producto of productos" id="encuadrado">
             <br>
             <br>
-            <img class="card-img-top img-fluid" [src]="producto.imagen" [alt]="producto.descripcion">
+            <img class="card-img-top img-fluid" src="http://localhost:8080/api/productos/uploads/img/{{producto.imagen}}" [alt]="producto.imagen">
             <div class="card-block">
                 <h4 class="card-title" id="titulo">{{producto.descripcion | uppercase}} <small>{{producto.marca.nombre}}</small></h4>
                 <p class="card-text">{{ producto.precioUnitario  | currency: '$'}}</p>
@@ -18,3 +18,4 @@
     </div>
     <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="tienda"></paginator-nav>
 </div>
+

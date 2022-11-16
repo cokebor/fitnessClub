@@ -16,9 +16,18 @@ import { RubrosComponent } from './components/rubros/rubros.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { LoginComponent } from './components/login/login.component';
+import { PrincipalComponent } from './components/principal/principal.component';
+import { NosotrosComponent } from './components/nosotros/nosotros.component';
+import { FormComponent } from './components/form/form.component';
+
 
 const routes: Routes = [
-  {path:'',redirectTo:'/tienda', pathMatch:'full'},
+  {path:'',redirectTo:'principal', pathMatch:'full'},
+  {path:'principal', component: PrincipalComponent},
+  {path:'nosotros', component: NosotrosComponent},
+  {path:'contacto', component: FormComponent},
+
+
   {path:'carrito',component:CarritoComponent},
   {path:'login',component:LoginComponent},
   {path:'comprobantes',component:ComprobantesComponent},

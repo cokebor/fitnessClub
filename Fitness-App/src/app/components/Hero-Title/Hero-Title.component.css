@@ -1,0 +1,73 @@
+  /* ::: principios ::: */
+  #principles h1 {
+    font-size: 10rem;
+    font-weight: 800;
+    letter-spacing: -.05em;
+    text-align: center;
+    margin: 0 0 16px;
+    padding-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  #principles span {
+    color: #000;
+    display: block;
+    line-height: 1.29;
+    padding:  0 12px;
+    position: relative;
+  }
+
+  #principles span::before {
+    background: linear-gradient(90deg, var(--start-color), var(--end-color));
+    content: var(--content);
+    position: absolute;
+    inset: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animated 9s infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes animated {
+    0%, 16.667%, 100% {
+
+
+      opacity: 1;
+    }
+
+    33.333%, 83.333% {
+      opacity: 0
+    }
+  }
+
+  #valores {
+    padding-top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+  /* when screen's smaller than 512px */
+  @media (max-width: 512px) {
+    #principles span {
+      font-size: 4rem;
+    }
+  }
+
+  /* when screen's smaller than 840px */
+  @media (max-width: 840px) {
+    #principles h1 {
+      font-size: 6rem;
+    }
+  }
+
+    .span1{
+      --content: "Disciplina."; --start-color:#007CF0; --end-color: #00DFD8; --delay: 0s;
+    }
+    .span2{
+      --content: "Constancia."; --start-color:#7928CA; --end-color: #FF0080; --delay: 3.33s;
+    }
+    .span3{
+      --content: "Resultado."; --start-color:#FF4D4D; --end-color: #F9CB28; --delay: 6.66s;
+    }
+    .span4{
+      --content: "Gimnasio."; --start-color: #7928CA; --end-color: #FF0080;
+    }
