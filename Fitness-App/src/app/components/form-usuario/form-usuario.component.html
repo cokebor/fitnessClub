@@ -5,13 +5,13 @@
     <hr>
 
     
-    <form #formUsuario="ngForm">
+    <form autocomplete="off" #formUsuario="ngForm" [appMatchPassword]="['password', 'password2']">
         <div class="form-group row">
             <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required #nombre="ngModel" minlength="3">
                     <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
         >
           <div *ngIf="nombre.errors?.['required']">
@@ -29,7 +29,7 @@
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" required #apellido="ngModel" minlength="3">
                     <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
         >
           <div *ngIf="apellido.errors?.['required']">
@@ -43,11 +43,30 @@
         </div>
         <br>
         <div class="form-group row">
+          <label for="dni" class="col-form-label col-sm-2">DNI</label>
+          <div class="col-sm-6">
+                  <input type="number" class="form-control" [(ngModel)]="usuario.dni" name="dni" required #dni="ngModel" minlength="7">
+                  <div
+                  class="alert alert-info"
+                  *ngIf="dni.invalid && (dni.dirty || dni.touched)"
+                >
+                  <div *ngIf="password.errors?.['required']">
+                    El DNI es requerido
+                  </div>
+                  <div *ngIf="password.errors?.['minlength']">
+                    Debe tener 7 caracteres como minimo
+                  </div>
+                </div>    
+          </div>
+      </div>
+<br>
+
+        <div class="form-group row">
             <label for="email" class="col-form-label col-sm-2">Email</label>
             <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email" required email #email="ngModel" minlength="3">
                     <div
-                    class="alert alert-danger"
+                    class="alert alert-info"
                     *ngIf="email.invalid && (email.dirty || email.touched)"
                   >
                     <div *ngIf="email.errors?.['required']">
@@ -82,7 +101,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="paiss.invalid && (paiss.dirty || paiss.touched)"
         >
           <div *ngIf="paiss.errors?.['required']">
@@ -110,7 +129,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="provinciaa.invalid && (provinciaa.dirty || provinciaa.touched)"
         >
           <div *ngIf="provinciaa.errors?.['required']">
@@ -137,7 +156,7 @@
                 </option>
               </select>
               <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)"
         >
           <div *ngIf="localidad.errors?.['required']">
@@ -159,7 +178,7 @@
           <div class="col-sm-6">
                   <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" required #password="ngModel" minlength="3">
                   <div
-                  class="alert alert-danger"
+                  class="alert alert-info"
                   *ngIf="password.invalid && (password.dirty || password.touched)"
                 >
                   <div *ngIf="password.errors?.['required']">
@@ -173,9 +192,23 @@
       </div>
       <br>
       <div class="form-group row">
-        <label for="password" class="col-form-label col-sm-2">Repetir Password</label>
+        <label for="password2" class="col-form-label col-sm-2">Confirmar Password</label>
         <div class="col-sm-6">
-                <input type="password" class="form-control" name="password2">
+                <input type="password" class="form-control" name="password2" required [(ngModel)]="usuario.passwordconfirm" #passwordconfirm="ngModel">
+                <div
+                class="alert alert-info"
+                *ngIf="passwordconfirm.invalid && (passwordconfirm.dirty || passwordconfirm.touched)"
+              >
+                <div *ngIf="passwordconfirm.errors?.['required']">
+                  La Confirmacion de Password es requerida
+                </div>
+                <div *ngIf="passwordconfirm.errors?.['minlength']">
+                  Debe tener 3 caracteres como minimo
+                </div>
+                <div *ngIf="passwordconfirm.errors['matching']">
+                  El Password debe coincidir con la Confirmacion
+                </div>
+              </div>   
         </div>
     </div>
     <!--

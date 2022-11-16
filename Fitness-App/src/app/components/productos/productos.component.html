@@ -40,7 +40,7 @@
                 <td>{{producto.stock}}</td>
                 <td>{{esServicio(producto.servicio)}}</td>
                 <td>{{estado(producto.estado)}}</td>
-                <td>
+                <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                     <button type="button" name="editar" [routerLink]="['/productos/form',producto.idProducto]" class="btn btn-primary btn-sm">editar</button>
                 </td>
                 <td>

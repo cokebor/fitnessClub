@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { MarcaModel } from '../models/marca.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,35 @@ export class MarcaService {
 
   private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
+
+  private isNoAutorizado(e):boolean{
+    if(e.status==401 || e.status==403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
+  }
+
+  private agregarAuthorizationHeader(){
+    let token=this.authService.token;
+    if(token!=null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
 
   getMarcasCombo():Observable<MarcaModel[]>{
-    return this.http.get<MarcaModel[]>(this.urlEndPoint);
+    return this.http.get<MarcaModel[]>(this.urlEndPoint,{headers:this.agregarAuthorizationHeader()}).pipe(
+      catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
   }
 
   getMarcas(page:number):Observable<any>{
-    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+    return this.http.get(this.urlEndPoint+'/page/'+page,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>{
         (response.content as MarcaModel[]).map(
           marca=>{
@@ -29,15 +51,27 @@ export class MarcaService {
           }
         );
         return response;
+      }),catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
       })
     );
   }
 
 
   guardar(marca:MarcaModel):Observable<any>{
-    return this.http.post<any>(this.urlEndPoint,marca,{headers:this.httpHeaders}).pipe(
+    return this.http.post<any>(this.urlEndPoint,marca,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>response.marca as MarcaModel),
       catchError(e=>{
+
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+
+        if(e.status==400){
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
@@ -46,8 +80,12 @@ export class MarcaService {
   }
   
   getMarca(idMarca:number):Observable<MarcaModel>{
-    return this.http.get<MarcaModel>(`${this.urlEndPoint}/${idMarca}`).pipe(
+    return this.http.get<MarcaModel>(`${this.urlEndPoint}/${idMarca}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         this.router.navigate(['/marcas'])
         console.error(e.error.mensaje);
         Swal.fire('Error al editar', e.error.mensaje,'error');
@@ -57,8 +95,16 @@ export class MarcaService {
   }
 
   update(marca:MarcaModel):Observable<any>{
-    return this.http.put<any>(`${this.urlEndPoint}/${marca.idMarca}`,marca,{headers:this.httpHeaders}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${marca.idMarca}`,marca,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+
+        if(e.status==400){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
@@ -67,8 +113,11 @@ export class MarcaService {
   }
   
   delete(idMarca:number):Observable<MarcaModel>{
-    return this.http.delete<MarcaModel>(`${this.urlEndPoint}/${idMarca}`,{headers:this.httpHeaders}).pipe(
+    return this.http.delete<MarcaModel>(`${this.urlEndPoint}/${idMarca}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);

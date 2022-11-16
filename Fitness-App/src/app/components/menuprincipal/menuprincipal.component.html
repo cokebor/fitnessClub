@@ -18,7 +18,29 @@
             <a class="nav-link" routerLink="/carrito">Carrito</a>
           </li>
         </ul>
+
+
+        <ul class="navbar-nav navbar-right">
+          <li *ngIf="!authService.isAuthenticated()"class="dropdown">
+            <a [routerLink]="['/login']" class="btn btn-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar
+            </a>
+            <div class="dropdown-menu">
+              <button [routerLink]="['/usuarios/form']" class="dropdown-item" type="submit">Registrarse</button>
+          </div>
+          </li>
+            <li *ngIf="authService.isAuthenticated()"class="dropdown">
+              <a class="btn btn-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{authService.usuario.apellido}}, {{authService.usuario.nombre}}
+              </a>
+              <div class="dropdown-menu">
+                <button (click)="abrirModal(authService.usuario)" class="dropdown-item" type="submit">Cambiar Imagen de Usuario</button>
+                <button class="dropdown-item" type="submit"  [routerLink]="['/usuarios/form',authService.usuario.idUsuario]">Editar Datos</button>
+                <button (click)="cerrarSesion()" class="dropdown-item" type="submit">Cerrar Sesion</button>
+              </div>
+            </li>
+        </ul>
+
       </div>
     </div>
   </nav>
-
+  <detalle-usuario *ngIf="usuarioSeleccionado" [usuario]="usuarioSeleccionado" ></detalle-usuario>

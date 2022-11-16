@@ -34,7 +34,8 @@ export class FormUsuarioComponent implements OnInit {
     private localidadService:LocalidadService,
     private usuarioService:UsuarioService, 
     private router:Router,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute,
+   ) { }
 
   ngOnInit(): void {
     this.obtenerPaises();
@@ -52,7 +53,7 @@ export class FormUsuarioComponent implements OnInit {
             this.obtenerProvincias();
             this.provincia=usuario.localidad.provincia;
             this.obtenerLocalidades();
-
+            this.titulo="Editar Usuario";
             console.log(this.provincia)
           }
         )

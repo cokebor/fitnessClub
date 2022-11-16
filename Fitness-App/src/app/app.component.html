@@ -1,5 +1,5 @@
 <app-menuprincipal></app-menuprincipal>
-<app-dash-admin></app-dash-admin>
+<app-dash-admin *ngIf="consultarRol()"></app-dash-admin>
 <div class="container my-3 wrap">
   <router-outlet></router-outlet>
 </div>

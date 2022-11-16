@@ -14,6 +14,7 @@
             <div class="col-sm">
               <ul *ngIf="usuario" class="list-group">
                 <li class="list-group-item active" >{{usuario.apellido}}, {{usuario.nombre}}</li>
+                <li class="list-group-item">{{usuario.dni}}</li>
                 <li class="list-group-item">{{usuario.email}}</li>
                 <li class="list-group-item">{{usuario.localidad.provincia.pais.nombre}}</li>
                 <li class="list-group-item">{{usuario.localidad.provincia.nombre}}</li>

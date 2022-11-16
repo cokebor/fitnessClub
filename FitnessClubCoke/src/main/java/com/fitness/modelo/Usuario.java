@@ -31,6 +31,8 @@ public class Usuario implements Serializable{
 	@Column(name = "Apellido",nullable = false, length = 45)
 	private String Apellido;
 	
+	@Column(name = "DNI",nullable=false)
+	private int DNI;
 	
 	@Column(name = "Email",nullable = false, length = 50, unique = true)
 	private String Email;
@@ -42,7 +44,7 @@ public class Usuario implements Serializable{
     @JoinColumn(name = "IdLocalidad", nullable = false)
 	private Localidad Localidad;
 		
-	@Column(name = "Password",nullable = false, length = 60)
+	@Column(name = "Password",nullable = false, length = 80)
 	private String Password;
 	
 	@ManyToOne(optional=false,fetch = FetchType.EAGER)
@@ -73,6 +75,13 @@ public class Usuario implements Serializable{
 	}
 	public void setApellido(String apellido) {
 		Apellido = apellido;
+	}
+	
+	public int getDNI() {
+		return DNI;
+	}
+	public void setDNI(int dNI) {
+		DNI = dNI;
 	}
 	public String getEmail() {
 		return Email;

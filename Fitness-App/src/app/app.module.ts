@@ -27,6 +27,8 @@ import { registerLocaleData } from '@angular/common';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { DetalleProductoComponent } from './components/form-detalle-producto/form-detalle-producto.component';
 import { FormDetalleUsuarioComponent } from './components/form-detalle-usuario/form-detalle-usuario.component';
+import { LoginComponent } from './components/login/login.component';
+import { MatchPasswordDirective } from './directives/MatchPasswordDirective';
 
 registerLocaleData(localeES,'es');
 
@@ -52,16 +54,18 @@ registerLocaleData(localeES,'es');
     DashUsuarioComponent,
     PaginatorComponent,
     DetalleProductoComponent,
-    FormDetalleUsuarioComponent
+    FormDetalleUsuarioComponent,
+    LoginComponent,
+    MatchPasswordDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [{provide: LOCALE_ID, useValue:"es"}],
+  providers: [{provide: LOCALE_ID, useValue:"es"} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

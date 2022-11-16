@@ -1,9 +1,11 @@
 import { DatePipe, formatDate, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ComprobanteModel } from '../models/comprobante.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,28 @@ export class ComprobanteService {
 
   private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
+  
+  private isNoAutorizado(e):boolean{
+    if(e.status==401 ){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    if(e.status==403){
+      Swal.fire('Acceso denegado', `${this.authService.usuario.apellido}, ${this.authService.usuario.nombre} no tiene acceso a este recurso`,'warning')
+      this.router.navigate(['/comprobantes']);
+      return true;
+    }
+    return false;
+  }
+
+  private agregarAuthorizationHeader(){
+    let token=this.authService.token;
+    if(token!=null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
 
   getComprobantes(page:number):Observable<any>{
     return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
@@ -25,14 +48,26 @@ export class ComprobanteService {
           }
         );
         return response;
+      }),catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
       })
     );
   }
 
   guardar(comrprobante:ComprobanteModel):Observable<any>{
-    return this.http.post<any>(this.urlEndPoint,comrprobante,{headers:this.httpHeaders}).pipe(
+    return this.http.post<any>(this.urlEndPoint,comrprobante,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>response.comprobante as ComprobanteModel),
       catchError(e=>{
+
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+
+        if(e.status==400){
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
@@ -41,8 +76,11 @@ export class ComprobanteService {
   }
 
   getComprobante(idComprobante:number):Observable<ComprobanteModel>{
-    return this.http.get<ComprobanteModel>(`${this.urlEndPoint}/${idComprobante}`).pipe(
+    return this.http.get<ComprobanteModel>(`${this.urlEndPoint}/${idComprobante}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);

@@ -20,7 +20,7 @@
           minlength="3"
         />
         <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
         >
           <div *ngIf="descripcion.errors?.['required']">
@@ -51,7 +51,7 @@
           </option>
         </select>
         <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="rubro.invalid && (rubro.dirty || rubro.touched)"
         >
           <div *ngIf="rubro.errors?.['required']">
@@ -81,7 +81,7 @@
           </option>
         </select>
         <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="disciplina.invalid && (disciplina.dirty || disciplina.touched)"
         >
           <div *ngIf="disciplina.errors?.['required']">
@@ -108,7 +108,7 @@
           </option>
         </select>
         <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="marca.invalid && (marca.dirty || marca.touched)"
         >
           <div *ngIf="marca.errors?.['required']">
@@ -132,7 +132,7 @@
           #precioUnitario="ngModel"
         />
         <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="precioUnitario.invalid && (precioUnitario.dirty || precioUnitario.touched)"
         >
           <div *ngIf="precioUnitario.errors?.['required']">
@@ -178,7 +178,7 @@
             #stock="ngModel"
           />
           <div
-          class="alert alert-danger"
+          class="alert alert-info"
           *ngIf="stock.invalid && (stock.dirty || stock.touched)"
         >
           <div *ngIf="stock.errors?.['required']">

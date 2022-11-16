@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductoModel } from 'src/app/models/producto.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import Swal from 'sweetalert2';
@@ -16,7 +17,7 @@ export class ProductosComponent implements OnInit {
   paginador:any;
   productoSeleccionado:ProductoModel;
 
-  constructor(private productoService:ProductoService, private activateRoute:ActivatedRoute, private modalService:ModalService) { }
+  constructor(private productoService:ProductoService, private activateRoute:ActivatedRoute, private modalService:ModalService, public authService:AuthService) { }
 
   ngOnInit(): void {
     this.obtenerProductos();

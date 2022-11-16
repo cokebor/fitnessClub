@@ -18,6 +18,7 @@
               <th>#</th>
               <th>Nombre</th>
               <th>Apellido</th>
+              <th>DNI</th>
               <th>Email</th>
               <th>Direccion</th>
               <th>Rol</th>
@@ -31,10 +32,11 @@
             <td><img *ngIf="usuario?.imagen" src="http://localhost:8080/api/usuarios/uploads/img/{{usuario.imagen}}" alt="{{usuario.imagen}}" class="img-thumbnail rounded" (click)="abrirModal(usuario)" style="width:64px; cursor: pointer;">
               <img *ngIf="!usuario?.imagen" src="http://localhost:8080/images/no-usuario.png" alt="Sin foto" class="img-thumbnail rounded" (click)="abrirModal(usuario)" style="width:64px; cursor: pointer;"></td>
               <td>{{usuario.nombre}}</td>
-              <td>{{usuario.apellido}}</td>
+              <td >{{usuario.apellido}}</td>
+              <td>{{usuario.dni}}</td>
               <td>{{usuario.email}}</td>
               <td>{{usuario.direccion}}</td>
-              <td>{{usuario.rol.nombre}}</td>
+              <td>{{rol(usuario.rol)}}</td>
               <td>{{estado(usuario.estado)}}</td>
               <td>
                 <button type="button" name="editar" [routerLink]="['/usuarios/form',usuario.idUsuario]" class="btn btn-primary btn-sm">editar</button>

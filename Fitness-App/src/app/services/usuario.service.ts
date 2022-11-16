@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { UsuarioModel } from '../models/usuario.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,30 @@ export class UsuarioService {
 
   private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
+
+  private isNoAutorizado(e):boolean{
+    if(e.status==401 || e.status==403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
+  }
+
+  private agregarAuthorizationHeader(){
+    let token=this.authService.token;
+    if(token!=null){
+      return this.httpHeaders.append('Authorization','Bearer ' + token);
+    }
+    return this.httpHeaders;
+  }
 /*
   getUsuarios():Observable<UsuarioModel[]>{
     return this.http.get<UsuarioModel[]>(this.urlEndPoint);
   }
 */
   getUsuarios(page:number):Observable<any>{
-    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+    return this.http.get(this.urlEndPoint+'/page/'+page,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>{
         (response.content as UsuarioModel[]).map(
           usuario=>{
@@ -29,15 +46,24 @@ export class UsuarioService {
           }
         );
         return response;
+      }),catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
       })
     );
   }
 
 
   guardar(usuario:UsuarioModel):Observable<any>{
-    return this.http.post<any>(this.urlEndPoint,usuario,{headers:this.httpHeaders}).pipe(
+    return this.http.post<any>(this.urlEndPoint,usuario,{headers:this.agregarAuthorizationHeader()}).pipe(
       map((response:any)=>response.usuario as UsuarioModel),
       catchError(e=>{
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        if(e.status==400){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
@@ -46,9 +72,16 @@ export class UsuarioService {
   }
 
   getUsuario(idUsuario:number):Observable<UsuarioModel>{
-    return this.http.get<UsuarioModel>(`${this.urlEndPoint}/${idUsuario}`).pipe(
+    return this.http.get<UsuarioModel>(`${this.urlEndPoint}/${idUsuario}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
-        this.router.navigate(['/usuarios'])
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        if(this.authService.hasRole('ROLE_ADMIN')){
+            this.router.navigate(['/usuarios'])
+        }else{
+          this.router.navigate(['/tienda'])
+        }
         console.error(e.error.mensaje);
         Swal.fire('Error al editar', e.error.mensaje,'error');
         return throwError(e);
@@ -61,16 +94,35 @@ export class UsuarioService {
     formData.append("archivo",archivo);
     formData.append("id",idUsuario);
 
+
+    let httpHeaders=new HttpHeaders();
+    let token=this.authService.token;
+    if(token!=null){
+      httpHeaders=httpHeaders.append('Authorization', 'Bearer' + token);
+    }
+
     const req=new HttpRequest('POST',`${this.urlEndPoint}/upload`, formData,{
-      reportProgress:true
+      reportProgress:true,
+      headers:httpHeaders 
     });
 
-    return this.http.request(req);
+    return this.http.request(req).pipe(
+      catchError(e=>{
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
   }
 
   update(usuario:UsuarioModel):Observable<any>{
-    return this.http.put<any>(`${this.urlEndPoint}/${usuario.idUsuario}`,usuario,{headers:this.httpHeaders}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${usuario.idUsuario}`,usuario,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+                if(e.status==400){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);
@@ -79,8 +131,11 @@ export class UsuarioService {
   }
 
   delete(idUsuario:number):Observable<UsuarioModel>{
-    return this.http.delete<UsuarioModel>(`${this.urlEndPoint}/${idUsuario}`,{headers:this.httpHeaders}).pipe(
+    return this.http.delete<UsuarioModel>(`${this.urlEndPoint}/${idUsuario}`,{headers:this.agregarAuthorizationHeader()}).pipe(
       catchError(e=>{
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error,'error');
         return throwError(e);

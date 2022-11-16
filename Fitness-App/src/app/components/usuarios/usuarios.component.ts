@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RolModel } from 'src/app/models/rol.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
@@ -16,7 +18,7 @@ export class UsuariosComponent implements OnInit {
   paginador:any;
   usuarioSeleccionado:UsuarioModel;
 
-  constructor(private usuarioService:UsuarioService, private activateRoute:ActivatedRoute, private modalService:ModalService) { }
+  constructor(private usuarioService:UsuarioService, private activateRoute:ActivatedRoute, private modalService:ModalService, public autService:AuthService) { }
 
   ngOnInit(): void {
       this.obtenerUsuarios();
@@ -89,6 +91,14 @@ export class UsuariosComponent implements OnInit {
     }
     return 'Deshablitado';
   }
+
+  rol(rol:RolModel):string{
+    if(rol.nombre=='ROLE_USER'){
+      return 'Usuario';
+    }
+    return 'Administrador';
+  }
+
 
   abrirModal(usuario:UsuarioModel){
     this.usuarioSeleccionado=usuario;

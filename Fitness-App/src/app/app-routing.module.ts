@@ -15,10 +15,12 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { RubrosComponent } from './components/rubros/rubros.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'/', pathMatch:'full'},
+  {path:'',redirectTo:'/tienda', pathMatch:'full'},
   {path:'carrito',component:CarritoComponent},
+  {path:'login',component:LoginComponent},
   {path:'comprobantes',component:ComprobantesComponent},
   {path:'comprobantes/page/:page',component:ComprobantesComponent},
   {path:'dashboardAdmin',component:DashAdminComponent},

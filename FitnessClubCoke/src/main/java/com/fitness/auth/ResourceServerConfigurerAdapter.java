@@ -23,11 +23,11 @@ public class ResourceServerConfigurerAdapter extends org.springframework.securit
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		//Indicamos que esta pagina tiene acceso cualquier usuario
-	    http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/usuarios/**","/api/paises/**","/api/**","/api/uploads/img/**","/images/**").permitAll()
-		.antMatchers(HttpMethod.POST,"/api/**").permitAll()
-		.antMatchers(HttpMethod.PUT,"/api/**").permitAll()
-		.antMatchers(HttpMethod.DELETE,"/api/**").permitAll()
-		.antMatchers(HttpMethod.GET,"/api/**").permitAll()
+	    http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/usuarios/**","/api/paises/**","/api/provincias/**","/api/localidades/**","/api/uploads/img/**","/images/**","/api/productosActivos/**" ).permitAll()
+		.antMatchers(HttpMethod.POST,"/api/usuarios/**").permitAll()
+		//.antMatchers(HttpMethod.PUT,"/api/**").permitAll()
+		//.antMatchers(HttpMethod.DELETE,"/api/**").permitAll()
+		//.antMatchers(HttpMethod.GET,"/api/**").permitAll()
 		/*.antMatchers(HttpMethod.GET,"/api/clientes/{id}").hasAnyRole("USER","ADMIN")
 		.antMatchers(HttpMethod.POST,"/api/clientes/upload").hasAnyRole("USER","ADMIN")
 		.antMatchers(HttpMethod.POST,"/api/clientes").hasRole("ADMIN")

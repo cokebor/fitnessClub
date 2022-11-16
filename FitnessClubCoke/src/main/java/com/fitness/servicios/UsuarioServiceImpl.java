@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,9 @@ public class UsuarioServiceImpl implements UserDetailsService,IUsuarioService{
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
+	
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -55,6 +59,7 @@ public class UsuarioServiceImpl implements UserDetailsService,IUsuarioService{
         Rol r = new Rol();
         r.setIdRol(1L);
         usuario.setRol(r);
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		return usuarioRepository.save(usuario);
 	}
 
@@ -85,9 +90,9 @@ public class UsuarioServiceImpl implements UserDetailsService,IUsuarioService{
         List<GrantedAuthority> autorizaciones = roles
                 .stream()
                 .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
-                // .peek(authority->logger.info("Rol :" + authority.getAuthority()))
                 .collect(Collectors.toList());
-
+      
+      
         return new User(usuario.getEmail(), usuario.getPassword(), usuario.getEstado(), true, true, true,
                 autorizaciones);
 
