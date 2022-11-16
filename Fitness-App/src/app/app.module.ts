@@ -34,6 +34,8 @@ import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { FormComponent } from './components/form/form.component';
 import { HeroTitleComponent } from './components/Hero-Title/Hero-Title.component';
+import { ComprobantesUserComponent } from './components/comprobantes-user/comprobantes-user.component';
+
 
 registerLocaleData(localeES,'es');
 
@@ -66,7 +68,8 @@ registerLocaleData(localeES,'es');
     NosotrosComponent,
     SliderComponent,
     FormComponent,
-    HeroTitleComponent
+    HeroTitleComponent, 
+    ComprobantesUserComponent
   ],
   imports: [
     BrowserModule,

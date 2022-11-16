@@ -10,9 +10,27 @@
 
 h1 {
     color: rgb(24, 153, 155);
-        text-align-last: center;
-        font-size: 4vh;
-        margin-left: 5%;
-        padding-top: 1%;
-        padding-bottom: 1%;
+    text-align-last: center;
+    font-size: 4vh;
+    margin-left: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+#boton-crear {
+    flex: 0 0 auto;
+    width: 20%;
+    margin-left: 90%;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+
+form {
+    margin-top: 1%;
+}
+
+#boton-editar {
+    flex: 0 0 auto;
+    width: 20%;
+    margin-left: 75%;
 }

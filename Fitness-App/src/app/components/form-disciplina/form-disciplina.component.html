@@ -1,4 +1,5 @@
 <div class="grilla">
+<<<<<<< HEAD
   <div>
     <h1>{{ titulo }}</h1>
   </div>
@@ -29,25 +30,40 @@
           </div>
         </div>
       </div>
+=======
+    <div>
+        <h1>{{ titulo }}</h1>
+>>>>>>> 1109fcb59ee70bdf15254b380072a7833ce0698a
     </div>
-    <br />
-    <div class="form-group row">
-      <div class="col-sm-6">
-        <button
-          class="btn btn-primary"
-          role="button"
-          (click)="guardar()"
-          *ngIf="!disciplina.idDisciplina; else elseBlock"
-          [disabled]="!formDisc.form.valid"
-        >
+    <hr />
+
+    <form #formDisc="ngForm">
+        <div class="form-group row">
+            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="disciplina.nombre" name="nombre" required #nombre="ngModel" minlength="3" />
+                <div class="alert alert-info" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    <div *ngIf="nombre.errors?.['required']">
+                        El Nombre es requerido
+                    </div>
+                    <div *ngIf="nombre.errors?.['minlength']">
+                        Debe tener 3 caracteres como minimo
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role="button" (click)="guardar()" *ngIf="!disciplina.idDisciplina; else elseBlock" [disabled]="!formDisc.form.valid" id="boton-crear">
           Crear
         </button>
-        <ng-template #elseBlock>
-          <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!formDisc.form.valid">
+                <ng-template #elseBlock>
+                    <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!formDisc.form.valid" id="boton-editar">
             Editar
           </button>
-        </ng-template>
-      </div>
-    </div>
-  </form>
+                </ng-template>
+            </div>
+        </div>
+    </form>
 </div>

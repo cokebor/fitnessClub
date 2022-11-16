@@ -1,0 +1,35 @@
+<div class="grilla" id="principles">
+    <div>
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/dashboardUser']">Atrás</button>
+        </div>
+        <h2>
+            <span class="span4">Listado de Comprobantes.</span>
+        </h2>
+    </div>
+    <hr>
+    <div *ngIf="comprobantes.length==0" class="alert alert-info">
+        No hay registros en la base de datos!
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="comprobantes.length>0">
+        <thead>
+            <tr>
+                <th>Id Comprobante</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Cant. Items</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let comprobante of comprobantes">
+                <td>{{comprobante.idComprobante}</td>
+                <td>{{comprobante.fecha}} |date:"dd/MM/yyyy"</td>
+                <td>{{comprobante.usuario.apellido}}, {{comprobante.usuario.nombre}}</td>
+                <td>{{comprobante.items.length}}</td>
+                <td>{{comprobante.total | currency: '$'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <paginator-nav *ngIf="paginador" [paginador]="paginador" paginaAPaginar="comprobantes"></paginator-nav>
+</div>

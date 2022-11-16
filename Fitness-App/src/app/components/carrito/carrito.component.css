@@ -3,16 +3,17 @@
     margin-bottom: 2%;
     box-shadow: 5px 5px 5px 5px rgb(182, 182, 182);
     padding: 5vh;
-    width: 100%;
+    width: 90%;
     height: 10%;
     margin-left: 7%;
+    margin-right: 50%;
 }
 
 h1 {
     color: rgb(24, 153, 155);
-        text-align-last: center;
-        font-size: 4vh;
-        margin-left: 5%;
-        padding-top: 1%;
-        padding-bottom: 1%;
+    text-align-last: center;
+    font-size: 4vh;
+    margin-left: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
