@@ -19,21 +19,22 @@ export class ProductoService {
   constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
 
   private isNoAutorizado(e):boolean{
-    if(e.status==401 ){
-      if(this.authService.isAuthenticated()){
+    //Error 401 es no autorizado y 403 es recurso prohibido 
+    if(e.status==401 || e.status==403){
+      /*if(this.authService.isAuthenticated()){
         this.authService.logout();
-      }
+      }*/
       this.router.navigate(['/login']);
       return true;
     }
-    if(e.status==403){
+    /*if(e.status==403){
       Swal.fire('Acceso denegado', `${this.authService.usuario.apellido}, ${this.authService.usuario.nombre} no tiene acceso a este recurso`,'warning')
-      this.router.navigate(['/productos']);
+     
       return true;
-    }
+    }*/
     return false;
+    
   }
-
   private agregarAuthorizationHeader(){
     let token=this.authService.token;
     if(token!=null){
@@ -118,15 +119,15 @@ export class ProductoService {
     );
   }
 */
-  subirFoto(archivo:File, idProducto):Observable<HttpEvent<{}>>{
+  subirFoto(archivo:File, id):Observable<HttpEvent<{}>>{
     let formData=new FormData();
     formData.append("archivo",archivo);
-    formData.append("id",idProducto);
+    formData.append("id",id);
     
     let httpHeaders=new HttpHeaders();
     let token=this.authService.token;
     if(token!=null){
-      httpHeaders=httpHeaders.append('Authorization', 'Bearer' + token);
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     }
 
 
@@ -135,13 +136,12 @@ export class ProductoService {
       headers:httpHeaders 
     });
 
-    return this.http.request(req).pipe(
-      catchError(e=>{
-        this.isNoAutorizado(e);
-        return throwError(e);
-      })
-    );
+    return this.http.request(req);
   }
+
+
+    
+
 
   getProducto(idProducto:number):Observable<ProductoModel>{
     return this.http.get<ProductoModel>(`${this.urlEndPoint}/${idProducto}`,{headers:this.agregarAuthorizationHeader()}).pipe(

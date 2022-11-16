@@ -6,7 +6,7 @@
     <div class="my-2 text-left">
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/disciplinas/form']">Crear Disciplina</button>
     </div>
-    <div *ngIf="disciplinas.length==0" class="alert alert-info">
+    <div *ngIf="disciplinas.length==0" class="alert alert-primary">
         No hay registros en la base de datos!
     </div>
         <table class="table table-bordered table-striped" *ngIf="disciplinas.length>0">

@@ -39,6 +39,7 @@ export class AuthService {
     const urlEndPoint='http://localhost:8080/oauth/token';
     const credenciales=btoa('angularapp'+':'+'12345');
 
+
     const httpHeaders=new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded','Authorization': 'Basic ' + credenciales});
 
     let params=new URLSearchParams();

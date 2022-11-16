@@ -26,6 +26,12 @@ const routes: Routes = [
   {path:'principal', component: PrincipalComponent},
   {path:'nosotros', component: NosotrosComponent},
   {path:'contacto', component: FormComponent},
+  {path:'usuarios/form',component:FormUsuarioComponent},
+  {path:'disciplinas',component:DisciplinasComponent},
+  {path:'disciplinas/form',component:FormDisciplinaComponent},
+  {path:'disciplinas/page/:page',component:DisciplinasComponent},
+  {path:'disciplinas/form/:id',component:FormDisciplinaComponent},
+  {path:'usuarios',component:UsuariosComponent},
 
 
   {path:'carrito',component:CarritoComponent},
@@ -43,18 +49,16 @@ const routes: Routes = [
   {path:'productos/form/:id',component:FormProductoComponent},
   {path:'tienda',component:TiendaComponent},
   {path:'tienda/page/:page',component:TiendaComponent},
-  {path:'usuarios',component:UsuariosComponent},
+ 
   {path:'usuarios/page/:page',component:UsuariosComponent},
-  {path:'usuarios/form',component:FormUsuarioComponent},
+  
   {path:'usuarios/form/:id',component:FormUsuarioComponent},
   {path:'rubros',component:RubrosComponent},
   {path:'rubros/page/:page',component:RubrosComponent},
   {path:'rubros/form',component:FormRubroComponent},
-  {path:'rubros/form/:id',component:FormRubroComponent},
-  {path:'disciplinas',component:DisciplinasComponent},
-  {path:'disciplinas/page/:page',component:DisciplinasComponent},
-  {path:'disciplinas/form',component:FormDisciplinaComponent},
-  {path:'disciplinas/form/:id',component:FormDisciplinaComponent}
+  {path:'rubros/form/:id',component:FormRubroComponent}
+ 
+ 
 ];
 
 @NgModule({

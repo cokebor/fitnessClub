@@ -18,11 +18,21 @@ export class PaisService {
   constructor(private http:HttpClient, private router:Router, private authService:AuthService) { }
 
   private isNoAutorizado(e):boolean{
+    //Error 401 es no autorizado y 403 es recurso prohibido 
     if(e.status==401 || e.status==403){
+      /*if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }*/
       this.router.navigate(['/login']);
       return true;
     }
+    /*if(e.status==403){
+      Swal.fire('Acceso denegado', `${this.authService.usuario.apellido}, ${this.authService.usuario.nombre} no tiene acceso a este recurso`,'warning')
+     
+      return true;
+    }*/
     return false;
+    
   }
 
   private agregarAuthorizationHeader(){
