@@ -12,7 +12,7 @@ export class UsuarioModel {
     password:string;
     passwordconfirm:string;
     rol:RolModel;
-    roles:string[];
+    //roles:string[];
     imagen:string='';
     estado:boolean=true;
 }

@@ -43,7 +43,7 @@
           </div>
           </li>
             <li *ngIf="authService.isAuthenticated()"class="dropdown">
-              <a class="btn btn-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="text-light btn btn-info btn-info-outline-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{authService.usuario.apellido}}, {{authService.usuario.nombre}}
               </a>
               <div class="dropdown-menu">

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RolModel } from '../models/rol.model';
 import { UsuarioModel } from '../models/usuario.model';
 
 @Injectable({
@@ -58,9 +59,10 @@ export class AuthService {
     this._usuario.apellido=payload.apellido;
     this._usuario.email=payload.email;
     this._usuario.idUsuario=payload.idUsuario;
-    this._usuario.roles=payload.authorities;
-    this._usuario.rol=payload.authorities[0];
-
+    //this._usuario.roles=payload.authorities;
+    this.usuario.rol=new RolModel();
+    this._usuario.rol.nombre=payload.authorities[0];
+console.log(payload.authorities[0]);
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 
@@ -78,15 +80,16 @@ export class AuthService {
 
   isAuthenticated():boolean{
     let payload=this.obtenerDatosToken(this.token);
-    if(payload !=null && payload.user_name!=null && payload.user_name.length>0){
+    if(payload !=null && payload.user_name && payload.user_name.length>0){
       return true;
     }
     return false;
   }
 
   hasRole(rol:string):boolean{
-  console.log(this.usuario.roles)
-    if(this.usuario.roles.includes(rol)){
+  //console.log(this.usuario.roles)
+    //if(this.usuario.roles.includes(rol)){
+      if(this.usuario.rol.nombre==rol){
       return true;
     }
     return false;
